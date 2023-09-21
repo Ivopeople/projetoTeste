@@ -25,7 +25,7 @@ jobs:
           java-version: '11'
 
       - name: Build Android APK
-        run: npm run android:build
+        run: npm run android
 
       - name: Set up iOS
         run: npx pod-install
