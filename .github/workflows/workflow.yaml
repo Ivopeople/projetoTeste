@@ -3,22 +3,33 @@ name: Integração Continua
 on: [push, pull_request]
 
 jobs:
-  continuos-integrations:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout do Código
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Instalação do node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-         node-version: 14.18.1
+          node-version: '14'
 
-      - name: instalar dependências 
-        run: 
-         yarn install   
+      - name: Install dependencies
+        run: npm install
 
-      - name: build para android
-        run: 
-         yarn android
+      - name: Set up Android
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Build Android APK
+        run: npm run android:build
+
+      - name: Set up iOS
+        run: npx pod-install
+        working-directory: ios
+
+      - name: Build iOS IPA
+        run: npm run ios:build
