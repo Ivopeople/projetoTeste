@@ -13,9 +13,12 @@ jobs:
       - name: Instalação do node.js
         uses: actions/setup-node@v2
         with:
-         node-version: 16.18.1
+         node-version: 14.18.1
 
-      - name: instalar dependências e builda para android
-        run: |
-         yarn install    
-         npx react-native run-android
+      - name: instalar dependências 
+        run: 
+         yarn install   
+
+      - name: build para android
+        run: 
+         yarn android
