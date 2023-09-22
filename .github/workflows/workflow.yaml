@@ -10,15 +10,21 @@ jobs:
       - name: Checkout do Código
         uses: actions/checkout@v2
 
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
       - name: Instalação do node.js
         uses: actions/setup-node@v2
         with:
-         node-version: '14'
+          node-version: "14"
 
-      - name: instalar dependências 
-        run: 
-         yarn 
+      - name: instalar dependências
+        run: yarn
+
+      - name: Clean Gradle cache
+        run: ./gradlew clean --refresh-dependencies
 
       - name: build android release
-        run: 
-         cd android && ./gradlew assembleRelease
+        run: cd android && ./gradlew assembleRelease
